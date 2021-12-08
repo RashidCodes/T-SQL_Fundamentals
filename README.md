@@ -1,2 +1,2 @@
-# Advanced_Git
+# Advanced Git
 Advanced Git tutorial
