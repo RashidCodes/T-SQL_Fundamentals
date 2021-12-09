@@ -1,24 +1,53 @@
-# Schemas
+# Creating Tables and Defining Data integrity
 
-As illustrated below, a database contains schemas, and schemas contain objects. You can think of a schema as a container of objects such a tables, views, stored procedures, and others.
+## Create a table
 
-<img src="Schemas.png" />
+```sql
+USE TSQL2012;
+
+-- Check if the table exists
+IF OBJECT_ID('dbo.Employees', 'U') IS NOT NULL
+  DROP TABLE dbo.Employees;
+
+CREATE TABLE dbo.Employees (
+   empid INT NOT NULL,
+   firstname VARCHAR(30) NOT NULL,
+   lastname VARCHAR(30) NOT NULL,
+   hiredate DATE NOT NULL,
+   mgrid INT NULL,
+   ssn VARCHAR(20) NOT NULL,
+   salary MONEY NOT NULL
+)
+```
 
 <br/>
 
-## Schemas and Security
-You can control permissions at the schema level. For example, you can grant a user ```SELECT``` permissions on a schema, allowing the user to query data from all object in that schema.
+Notice the use of the two-part name *dbo.Employees* for the table name, as recommended earlier. If you omit the schema name, SQL Server will assume the default schema associated with the database user running the code.
+
 
 <br/>
 
-## Schemas as namespaces
-The schema is also a **namespace** -- it is used as a prefix to the object name. For example, supposed you have a table named *Orders* in a schema named *Sales*. The **schema-qualified** object name (also known as the ***two-part object name***) is ***Sales.Orders***.
+## Coding Style
+Use a style that you and your fellow developers are comfortable with. What ultimately matters most is the consistency, readability, and maintability of your code. Take advantage of whitespace to facilitate readability.
 
-If you omit the schema name when referring to an object, SQL server will a apply a process to resolve the schema name, such as checking whether the object exists in the user's default schema, and if it doesn't checking whether it exists in the *dbo* schema.
+It is strongly recommended to adopt the practice of terminating all statements with a semi-colon. Not only will doing this improve the readability of your code, bu tin some cases it can save you some grief. (When a semicolon is required and *not* specified, the error message SQL Server produces is not always very clear.)
 
-<blockquote> Microsoft recommends that when you refer to objects in your code you always use the two-part object names </blockquote>
 
-There are some relatively insignificant costs involved in resolving the object name whe you don't specify it explicitly. But as insignificant as this extra cost might be, why pay it?
+<br/>
+
+
+# Defining data integrity
+
+The benefits of the relational model is that data integrity is an integral part of it.
+
+<blockquote> Data integrity enforced as part of the model -- namely, as prt of the table definitions -- is considered as <b>declarative data integrity</b>. Data integrity enforced with code - such as with stored procedures or triggers -- is considered <b>procedural data integrity</b></blockquote>
+
+
+
+
+
+
+
 
 
 
