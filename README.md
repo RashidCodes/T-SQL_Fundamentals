@@ -102,30 +102,37 @@ The second normal form involves two rules. One rule is that the data must meet t
 <blockquote>If you need to obtain any non-key attributes value, you need to provide the values of all attributes of a candidate key from the sample tuple.</blockquote>
 
 
+Let's take a look at the figure below.
+
+<img src="Data model before applying 2NF.png" />
+
+Figure 1-1: Data model before applying 2NF
+
+<br/>
+
+The second normal form is violated because there are non-key attributes that depend on only part of the candidate key. For instance, you can find the *orderdate* of an order, as well as *customerid* and *companyname*, based on the *orderid* alone. 
+
+To conform to the second normal form, you would need to split your original relation into two relations: *Order* and *OrderDetails* (as shown in Figure 1-2).
+
+<img src="Data model after applying 2NF and before 3NF.png" />
+
+<br/>
+
+## 3NF
+
+The third normal form has two rules. The data must meet the second normal form. **Also, all non-attributes must be dependent on candidate keys non-transitively.** Informally, this rule means that all non-key attributes must be mutually independent. In other words, one non-key attribute cannot be dependent on another non-key attribute.
 
 
+The *Orders* and *OrderDetails* relations described previously now conform to the second normal form. Remember that the *Orders* relation at this point contains the attributes *orderid, orderdate, customerid*, and *companyname*, with the primary key defined in *orderid*.
 
+Both *customerid* and *companyname* depend on the whole primark key -- *orderid*. For example, you need the entire primary key to find the *customerid* representing the customer who placed the order. Similarly, you need the whole primary key to find the company name of the customer who placed the order. However, *customerid* and *companyname* are also dependent on each other. To meet the third normal form, you need to add a *Customers* relation as shown in Figure 3 below.
 
+<img src="Data model after applying 2NF and before 3NF.png" />
 
+<br/>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### Summary of 2NF and 3NF
+<blockquote>Every non-key attribute is dependent on the key, the whole key, and nothing but the key -- so help me Codd.</blockquote>i
 
 
 
