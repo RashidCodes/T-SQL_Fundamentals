@@ -1,73 +1,26 @@
-# The Data Life Cycle
+# SQL Server Architecture
 
-This section describes the different environments in which data can reside and the characteristics of both the data and the environment at each stage of the data life cycle. The figure below shows the lifecycle.
+## SQL Server Instances
 
-<img src="The data lifecycle.png" />
+A SQL Server Instance, as illustrated in Figure 1-5, is an installation of a SQL server database engine or service. You can install multiple instances of an on-premises SQL Server on the same computer. Each instance is completely independent of the others in terms of security, the data that it managers, and in all other aspects.
 
-Figure 1: The data lifecycle
-
-<br/>
-
-## Online Transactional Processing
-
-The focus of an OLTP system is data entry and not reporting -- transactions mainly insert, update, and delete data. The relational model is targed **primarily at OLTP systems**, where a normalized model provides both good performance for data entry and data consistency.
-
-However, an OLTP environment is not suitable for reporting purposes because a normalized model usually involves many tables with complex relationships.
+<blockquote>At the logical level, two different instances residing on the same computer have no more in comon that two instances residing on two separate computers.</blockquote>
 
 <br/>
 
-## Data Warehouses
+## Why you might install serveral instances
 
-A *data warehouse (DW)* is an environment designed for data retrieval and reporting purposes. The data model of a data warehouse is designed and optimized mainly to support data **retrieval needs**. 
+### Save on support costs
 
-The simplest data warehouse design is called a *star schema*. It includes several **dimension** tables and a **fact** table. 
-
-<blockquote>Each dimension table represents a subject by which you want to analyze the data.</blockquote>
-
-
-For example, in a system that deals with orders and sales, you will probably want to analyze data by customers, products, employees, etc. In a star schema, each dimension is implemented as a single table with redundant data. For example, a product dimension could be implemented as a single *ProductDim* table instead of three normalized tables: *Products*, *ProductSubCategories*, and *ProductCategories*.
-
-**If you normalize a dimension table, which results in multiple tables representing that dimension, you get what's known as a snowflake dimension**.
-
-The fact table holds the **facts** and **measures** such as *quantity* and value for each relevant combination of dimension keys. 
-
-<blockquote>Note that the data in the DW is typically preaggregated to a certain level of granularity (such as day)</blockquote>
-
-SQL Server provides a tool called Microsoft SQL Server Integration Services (SSIS) to handle ETL needs. Often the ETL process will involve the use of data staging area (DSA) between the OLTP and the DW.
-
-<br/>
+For example, to be able to test functionality of features in reponse to support calls or reproduce errors that users encounter in the production environment, the support department needs local installations of SQL Server tha mimic the user's production environment in terms of version, edition, and service pack of SQL Server. If an organization has multiple user environments, the support department needs multiple installations of SQL Server. Rather than having multiple computers, each hosting a different installation of SQL Server, that must be supported separately, the support department can have one computer with multiple installed instances. 
+This can also be achieved using multiple virtual machines.
 
 
-## The Business Intelligence Semantic Model
+<br>
 
-This is Microsoft's latest model for supporting the entire BI stack of applications. The idea is to provide **rich, flexible, efficient**, and **scalable analytical** and reporting capabilities.
+### Data Segregation
 
-The deployment of the model can be in:
-
-- Analysis Services server
-- PowerPivot
-
-Analysis Services server is targed at BI professionals and IT, whereas PowerPivot is targeted at business users. With Analysis Services, you can use either a **multidimensional data model** or a **tabular (relational) one**. 
-
-With PowerPivot, you use a **tabular data model**. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Providers of database service sometimes need to guarantee their customers complete security separation of their dat from other customer's data.
 
 
 
