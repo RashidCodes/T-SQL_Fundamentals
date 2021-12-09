@@ -116,6 +116,8 @@ To conform to the second normal form, you would need to split your original rela
 
 <img src="Data model after applying 2NF and before 3NF.png" />
 
+Figure 1-2: Data model after applying 2NF and before 3NF
+
 <br/>
 
 ## 3NF
@@ -128,6 +130,8 @@ The *Orders* and *OrderDetails* relations described previously now conform to th
 Both *customerid* and *companyname* depend on the whole primark key -- *orderid*. For example, you need the entire primary key to find the *customerid* representing the customer who placed the order. Similarly, you need the whole primary key to find the company name of the customer who placed the order. However, *customerid* and *companyname* are also dependent on each other. To meet the third normal form, you need to add a *Customers* relation as shown in Figure 3 below.
 
 <img src="Data model after applying 2NF and before 3NF.png" />
+
+Figure 1-3: Data model after applying 3NF
 
 <br/>
 
