@@ -21,7 +21,7 @@ The data files hold object data
 
 <br/>
 
-## The log files
+### The log files
 The log files hold information that SQL Server needs to maintian transactions.
 
 
