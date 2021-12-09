@@ -1,28 +1,46 @@
-# SQL Server Architecture
+# Databases
 
-## SQL Server Instances
+You can think of a database as a container of objcts such as tables, views, stored procedures, and other objects. When you install an on-premises flavor of SQL Server, the setup program creates several system databases that hold system data and server internal purposes. You can create your own databases that will hold application data after the installation.
 
-A SQL Server Instance, as illustrated in Figure 1-5, is an installation of a SQL server database engine or service. You can install multiple instances of an on-premises SQL Server on the same computer. Each instance is completely independent of the others in terms of security, the data that it managers, and in all other aspects.
-
-<img src="SQL Server Instances.png" />
-
-<blockquote>At the logical level, two different instances residing on the same computer have no more in comon that two instances residing on two separate computers.</blockquote>
+The system databases that the setup program create includes *master*, *Resource*, *model*, *tempdb*, and *msdb*.
 
 <br/>
 
-## Why you might install serveral instances
+## The Physical layer of a database
 
-### Save on support costs
+If you're using SQL Databaes, your only concern is taht logical layer. You do not deal with the physical layout of the database data and log files, *tempdb*, and so on. But if you're using on-premises SQL Server, you are responsible for the physical layer as well. The figure below shows a diagram of the physical database layout.
 
-For example, to be able to test functionality of features in reponse to support calls or reproduce errors that users encounter in the production environment, the support department needs local installations of SQL Server tha mimic the user's production environment in terms of version, edition, and service pack of SQL Server. If an organization has multiple user environments, the support department needs multiple installations of SQL Server. Rather than having multiple computers, each hosting a different installation of SQL Server, that must be supported separately, the support department can have one computer with multiple installed instances. 
-This can also be achieved using multiple virtual machines.
+<img src="Database layout.png" />
+
+The database is made up of **data files** and **transaction log files**. When you create a database, you can define varous properties for each file, including the file name, location, initial size, maximum size, and an autogrowth increment. Each database must have at least one data file and at least one log file. 
+
+<br/>
+
+### The data files
+The data files hold object data
+
+<br/>
+
+## The log files
+The log files hold information that SQL Server needs to maintian transactions.
 
 
-<br>
+## Filegroups
 
-### Data Segregation
+Data files are organized in logical groups called **filegroups**. A filegroup is the target for creating an object, such as a table or index. The object data will be spreads across the files that belong to target filegroup. **Filegroups are your way of controlling the physical locatiosn of your objects.**
+A database can have at least one file group called *PRIMARY*, and can optionally have other use filegroups as well. 
 
-Providers of database service sometimes need to guarantee their customers complete security separation of their dat from other customer's data.
+
+<br/>
+
+### The ```PRIMARY``` Filegroup
+
+The *PRIMARY* filegroup contains the primary data file (which has an ```.mdf``` extension) for the database, and the database's sytem catalog. You can optionally add secondary data files (whihc have the ```.ndf``` extension) to PRIMARY. User filegroups only contain secondary data file (which have an ```.ndf``` extension) to *PRIMARY*. User filegroups contain only secondary data files. You can decide which filegroup is marked as the default filegroup. Objects are created in the default filegroup when the object creation statement does not explicitly specify a differnt target group.
+
+
+
+
+
 
 
 
