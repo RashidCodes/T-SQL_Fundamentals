@@ -8,7 +8,7 @@ Figure 1: The data lifecycle
 
 <br/>
 
-## Online Transactioanl Processing
+## Online Transactional Processing
 
 The focus of an OLTP system is data entry and not reporting -- transactions mainly insert, update, and delete data. The relational model is targed **primarily at OLTP systems**, where a normalized model provides both good performance for data entry and data consistency.
 
@@ -22,10 +22,10 @@ A *data warehouse (DW)* is an environment designed for data retrieval and report
 
 The simplest data warehouse design is called a *star schema*. It includes several **dimension** tables and a **fact** table. 
 
-<blockquote>*Each dimension table represents a subject by which you want to analyze the data*.</blockquote>
+<blockquote>Each dimension table represents a subject by which you want to analyze the data.</blockquote>
 
 
-For example, in a system that deals with orders and sales, you will probably want to analyze data by customers, products, employees, etc. In a star schema, each dimension is implemented as a single table with redundant data. For example, a product dimension could be implemented as a single *ProductDim* table instaed of three normalized tables: *Products*, *ProductSubCategories*, and *ProductCategories*.
+For example, in a system that deals with orders and sales, you will probably want to analyze data by customers, products, employees, etc. In a star schema, each dimension is implemented as a single table with redundant data. For example, a product dimension could be implemented as a single *ProductDim* table instead of three normalized tables: *Products*, *ProductSubCategories*, and *ProductCategories*.
 
 **If you normalize a dimension table, which results in multiple tables representing that dimension, you get what's known as a snowflake dimension**.
 
@@ -40,16 +40,16 @@ SQL Server provides a tool called Microsoft SQL Server Integration Services (SSI
 
 ## The Business Intelligence Semantic Model
 
-This is Microsoft's latest model for supporting the entire BI stack of applications. The idea is to provide **rich, flexible, efficient**, and **scalable analytical** andreporting capabilities.
+This is Microsoft's latest model for supporting the entire BI stack of applications. The idea is to provide **rich, flexible, efficient**, and **scalable analytical** and reporting capabilities.
 
 The deployment of the model can be in:
 
 - Analysis Services server
 - PowerPivot
 
-Analysis Services server is targed at BI professionals and IT, whereas PowerPivot is targeted at business users. With Analysis Services, you can use either a **multidimensional data model* or a **tabular (relational) one*. 
+Analysis Services server is targed at BI professionals and IT, whereas PowerPivot is targeted at business users. With Analysis Services, you can use either a **multidimensional data model** or a **tabular (relational) one**. 
 
-With PowerPivot, you use a **tabular data model***. 
+With PowerPivot, you use a **tabular data model**. 
 
 
 
