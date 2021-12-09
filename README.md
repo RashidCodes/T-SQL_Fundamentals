@@ -136,7 +136,7 @@ Figure 1-3: Data model after applying 3NF
 <br/>
 
 ### Summary of 2NF and 3NF
-<blockquote>Every non-key attribute is dependent on the key, the whole key, and nothing but the key -- so help me Codd.</blockquote>i
+<blockquote>Every non-key attribute is dependent on the key, the whole key, and nothing but the key -- so help me Codd.</blockquote>
 
 
 
