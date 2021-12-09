@@ -1,41 +1,24 @@
-# Databases
+# Schemas
 
-You can think of a database as a container of objcts such as tables, views, stored procedures, and other objects. When you install an on-premises flavor of SQL Server, the setup program creates several system databases that hold system data and server internal purposes. You can create your own databases that will hold application data after the installation.
+As illustrated below, a database contains schemas, and schemas contain objects. You can think of a schema as a container of objects such a tables, views, stored procedures, and others.
 
-The system databases that the setup program create includes *master*, *Resource*, *model*, *tempdb*, and *msdb*.
-
-<br/>
-
-## The Physical layer of a database
-
-If you're using SQL Databaes, your only concern is taht logical layer. You do not deal with the physical layout of the database data and log files, *tempdb*, and so on. But if you're using on-premises SQL Server, you are responsible for the physical layer as well. The figure below shows a diagram of the physical database layout.
-
-<img src="Database layout.png" />
-
-The database is made up of **data files** and **transaction log files**. When you create a database, you can define varous properties for each file, including the file name, location, initial size, maximum size, and an autogrowth increment. Each database must have at least one data file and at least one log file. 
+<img src="" />
 
 <br/>
 
-### The data files
-The data files hold object data
+## Schemas and Security
+You can control permissions at the schema level. For example, you can grant a user ```SELECT``` permissions on a schema, allowing the user to query data from all object in that schema.
 
 <br/>
 
-### The log files
-The log files hold information that SQL Server needs to maintian transactions.
+## Schemas as namespaces
+The schema is also a **namespace** -- it is used as a prefix to the object name. For example, supposed you have a table named *Orders* in a schema named *Sales*. The **schema-qualified** object name (also known as the ***two-part object name***) is ***Sales.Orders***.
 
+If you omit the schema name when referring to an object, SQL server will a apply a process to resolve the schema name, such as checking whether the object exists in the user's default schema, and if it doesn't checking whether it exists in the *dbo* schema.
 
-## Filegroups
+<blockquote> Microsoft recommends that when you refer to objects in your code you always use the two-part object names </blockquote>.
 
-Data files are organized in logical groups called **filegroups**. A filegroup is the target for creating an object, such as a table or index. The object data will be spreads across the files that belong to target filegroup. **Filegroups are your way of controlling the physical locatiosn of your objects.**
-A database can have at least one file group called *PRIMARY*, and can optionally have other use filegroups as well. 
-
-
-<br/>
-
-### The ```PRIMARY``` Filegroup
-
-The *PRIMARY* filegroup contains the primary data file (which has an ```.mdf``` extension) for the database, and the database's sytem catalog. You can optionally add secondary data files (whihc have the ```.ndf``` extension) to PRIMARY. User filegroups only contain secondary data file (which have an ```.ndf``` extension) to *PRIMARY*. User filegroups contain only secondary data files. You can decide which filegroup is marked as the default filegroup. Objects are created in the default filegroup when the object creation statement does not explicitly specify a differnt target group.
+There are some relatively insignificant costs involved in resolving the object name whe you don't specify it explicitly. But as insignificant as this extra cost might be, why pay it?
 
 
 
