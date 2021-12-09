@@ -2,7 +2,7 @@
 
 As illustrated below, a database contains schemas, and schemas contain objects. You can think of a schema as a container of objects such a tables, views, stored procedures, and others.
 
-<img src="Schema.png" />
+<img src="Schemas.png" />
 
 <br/>
 
