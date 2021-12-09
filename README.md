@@ -4,6 +4,8 @@
 
 A SQL Server Instance, as illustrated in Figure 1-5, is an installation of a SQL server database engine or service. You can install multiple instances of an on-premises SQL Server on the same computer. Each instance is completely independent of the others in terms of security, the data that it managers, and in all other aspects.
 
+<img src="SQL Server Instances.png" />
+
 <blockquote>At the logical level, two different instances residing on the same computer have no more in comon that two instances residing on two separate computers.</blockquote>
 
 <br/>
