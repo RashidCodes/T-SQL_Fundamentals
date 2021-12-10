@@ -66,7 +66,7 @@ The common belief that the term relational stems from relationships between tabl
 
 When you design a data model for a database, you represent all data with relations (tables). You start by identifying propostions that you'll need to represent in the database. For example, Employee "Rashid was born on February 2, 2000, and works in the Accounts Department" is a proposition. If this proposition is true, it will manifest itself as a row in a table of Employees. A false proposition will simply not manifest itself. This presumption is known as the *close world assumption (CWA)*.
 
-The next steo is to formalize the propositions. This is done by taking out the actual data and defining the structure -- for example by  createing predicates out of propositions. You can think of predicates as ***parametrized propositions***.
+The next step is to formalize the propositions. This is done by taking out the actual data and defining the structure -- for example by  creating predicates out of propositions. You can think of predicates as ***parametrized propositions***.
 
 
 <br/> 
