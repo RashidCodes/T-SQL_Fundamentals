@@ -37,7 +37,7 @@ The phrase *our perception or of our thought* implies that the definition of a s
 
 ### Notice that Cantor's definition does not mention Order
 
-Cantors definition does not make any mention of order among the set elements. The order is not important. A query against a table can returns table rows in any order unless you explicitly request that the data be sorted in a specific way, perhaps for presentation purposes.
+Cantors definition does not make any mention of order among the set elements. The order is not important. A query against a table can return table rows in any order unless you explicitly request that the data be sorted in a specific way, perhaps for presentation purposes.
 
 
 <br/>
