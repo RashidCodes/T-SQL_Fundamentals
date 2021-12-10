@@ -1,6 +1,6 @@
 # SQL
 
-SQL is botn an ANSI and ISO standard language based on the relational model, designed for querying and managing data in an RDBMS.
+SQL is both an ANSI and ISO standard language based on the relational model, designed for querying and managing data in an RDBMS.
 
 Unlike many programming languages which implement the *imperative* programming paradigm, SQL is a declarative programming language -- SQL requires you specify what you want and not how to get it. The RDBMS will figure out the mechanics required to process your request.
 
