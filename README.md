@@ -30,29 +30,30 @@ Notice the use of the two-part name *dbo.Employees* for the table name, as recom
 ## Coding Style
 Use a style that you and your fellow developers are comfortable with. What ultimately matters most is the consistency, readability, and maintability of your code. Take advantage of whitespace to facilitate readability.
 
-It is strongly recommended to adopt the practice of terminating all statements with a semi-colon. Not only will doing this improve the readability of your code, bu tin some cases it can save you some grief. (When a semicolon is required and *not* specified, the error message SQL Server produces is not always very clear.)
+It is strongly recommended to adopt the practice of terminating all statements with a semi-colon. Not only will doing this improve the readability of your code, but in some cases it can save you some grief. (When a semicolon is required and *not* specified, the error message SQL Server produces is not always very clear.)
 
 
 <br/>
 
 
-# Defining data integrity
+## Defining data integrity
 
 The benefits of the relational model is that data integrity is an integral part of it.
 
 <blockquote> Data integrity enforced as part of the model -- namely, as part of the table definitions -- is considered as <b>declarative data integrity</b>. Data integrity enforced with code - such as with stored procedures or triggers -- is considered <b>procedural data integrity</b></blockquote>
 
 
-This section highlights some declarative constraints namely:
+This section highlights declarative constraints namely:
 
  - Primary Key constraints
  - Unique Constraints
  - Foreign Key constraints
  - Check constraints
- - Defaults constraints 
+ - Default constraints 
 
 
 ## Primary  Key Constraints
+
 A primary key constraints enforces uniqueness of rows and also disallows *NULL* marks in the constraint attributes. **An attempt to define a primary key constraint on a column taht allows *NULL* marks will be rejected by the RDBMS.** Each table can only have one primary key.
 
 ```sql
@@ -61,7 +62,6 @@ ALTER TABLE dbo.Employees
   PRIMARY KEY(empid);
 
 ```
-
 
 To enforce uniqueness of the logical primary key constraint, SQL Server will create a unique index behind the scenes. **Indexes (not necessarily unique ones) are also used to speed up queries by avoiding unnecessary full table scans (simialar to indexes in books).**
 
@@ -105,12 +105,12 @@ CREATE TABLE dbo.Orders (
   orderts DATETIME2 NOT NULL, 
   qty INT NOT NULL
   CONSTRAINT PK_Orders
-    PRIMARY KEY(orderid)
+     PRIMARY KEY(orderid)
 );
 
 ```
 
-Suppose to you want to restrict the values in ```empid``` column in the *Orders* table to the values that exist in the ```empid``` column in the *Employees* table, you can define a foreign key in the *Orders* table as follows:
+Suppose you want to restrict the values in ```empid``` column in the *Orders* table to the values that exist in the ```empid``` column in the *Employees* table, you can define a foreign key in the *Orders* table as follows:
 
 ```sql
 ALTER TABLE dbo.Orders
@@ -118,39 +118,52 @@ ALTER TABLE dbo.Orders
   FOREIGN KEY (empid)
   REFERENCES dbo.Employees(empid)
 ```
-As illustrated below, a database contains schemas, and schemas contain objects. You can think of a schema as a container of objects such a tables, views, stored procedures, and others.
-
-<img src="Schemas.png" />
-
 <br/>
-
-## Schemas and Security
-You can control permissions at the schema level. For example, you can grant a user ```SELECT``` permissions on a schema, allowing the user to query data from all object in that schema.
-
-<br/>
-
-## Schemas as namespaces
-The schema is also a **namespace** -- it is used as a prefix to the object name. For example, supposed you have a table named *Orders* in a schema named *Sales*. The **schema-qualified** object name (also known as the ***two-part object name***) is ***Sales.Orders***.
-
-If you omit the schema name when referring to an object, SQL server will a apply a process to resolve the schema name, such as checking whether the object exists in the user's default schema, and if it doesn't checking whether it exists in the *dbo* schema.
-
-<blockquote> Microsoft recommends that when you refer to objects in your code you always use the two-part object names </blockquote>
-
-There are some relatively insignificant costs involved in resolving the object name whe you don't specify it explicitly. But as insignificant as this extra cost might be, why pay it?
-
-
-
-
-
-
-
 
 <blockquote>Note that <i>NULL</i> marks are allowed in the foreign key columns even if there are no NULL marks in the referenced candidate key columns.</blockquote>
 
+The example above is a basic definition of a foreign key that enforced a referential action called *no action*. No action means that attempts to delete rows from the referenced table or update the referenced candidate key attributes will be rejected if related rows exist in the referencing table. For examle, if you try to delete an employee rwow from the *Employee* table when there are related orders in the *Orders* table, the RDBMS will reject such an attempt and produce an error.
 
 
+You can define the foreign key with actions that will compensate for such attempts (to delete rows from the referenced table or update the referenced candidate key attributes when related rows exist in the referencing table). You can define options *ON DELETE* and *ON UPDATE* with actions such as *CASCADE, SET DEFAULT,* and *SET NULL* as part of the foreign key definition.
+
+<br/>
+
+### CASCADE
+Cascade means that the operation will be *cascaded* to related rows. For example, *ON DELETE CASCADE* means that when you delete a row from the referenced table, the RDBMS will delete the related rows from the referencing table.
 
 
+### SET DEFAULT and SET NULL
+*SET DEFAULT and SET NULL* mean that the compensating action will set the foreign key attributes of the related rows to the column's default value or *NULL*, respectively.
 
 
+<br/>
+
+## Check Constraints
+A check constraint allows you to define a predicaet that a row must meet to be entered into the table or to be modified. For example, the following check constraint ensures that the salary column in the *Employees* table will support only positive values.
+
+```sql
+ALTER TABLE dbo.Employees
+  ADD CONSTRAINT CHK_Employees_salary
+  CHECK(salary > 0.00)
+```
+
+An attempt to insert or update a row with a nonpositive salary value will be rejected by the RDBMS. Note that a check constraint rejects an attempt to insert or update a row when the predicate evaluates to *FALSE*. The modification will only be accepted when the predicate evaluates to either *TRUE* or *UNKNOWN*.
+
+When adding check and foreign key constraints, you can specify an option called *WITH NOCHECK* taht tells the RDBMS that you want it to bypass constraint checking for existing data. This is considered bad practice because you cannot be sure that your data is **consistent**. You can also disable or enable existing check and foreign key constraints.
+
+
+<br/>
+
+
+## Default Constraint
+A default constraint is associated with a particular attribute. It is an expression that is used as the default value when an explicit value is not specified for the attribute when you insert a row. The following code defiens a default constraint for the *orderts* attribute.
+
+```sql
+ALTER TABLE dbo.Orders
+  ADD CONSTRAINT DFT_Orders_ordersts
+  DEFAULT(SYSDATETIME()) FOR orderts;
+```
+
+The default expression invokes the *SYSDATETIME* function, which returns the current date and time value. After this default expression is defined, whenever you insert a row in the *Orderts* table and do not explicitly specify a value in the *orderts* attribute, SQL Server will set the attribute value to *SYSDATETIME*. 
 
