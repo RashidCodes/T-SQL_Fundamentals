@@ -33,7 +33,7 @@ Your focus should be on the collection of objects as opposed to the individual o
 
 The work *distinct* means that every element of a set must be unique. Tables implement this by using **key** constraints. Without a key, it's impossible to uniquely identify rows, and therefore the table will not qualify as a set but it'll qualify as a ***multiset*** or ***bag***.
 
-The phrase *our perception 9or of our thought* implies that the definition of a set is subjective. For example in a field of vegetables, one person might focus on tomatoes, another might focus on carrots. Therefore you have a lot of freedom in defining sets. When you design a data model for your database, the design process should carefully consider the **subjective** needs of the application to determine adequate definitions for the entities involved.
+The phrase *our perception or of our thought* implies that the definition of a set is subjective. For example in a field of vegetables, one person might focus on tomatoes, another might focus on carrots. Therefore you have a lot of freedom in defining sets. When you design a data model for your database, the design process should carefully consider the **subjective** needs of the application to determine adequate definitions for the entities involved.
 
 ### Notice that Cantor's definition does not mention Order
 
