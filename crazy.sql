@@ -14,7 +14,7 @@ set nocount on;
 declare @count as int  = 0;
 
 -- random numbers can be generated twice (remove duplicates subsequently)
-while @count <= 5000
+while @count <= 10
 begin 
     declare @somevar as binary(32) = hashbytes('SHA', cast(rand() as varchar(100)));
     insert into dbo.test_table values (@somevar);
@@ -65,33 +65,33 @@ with a as (
     select  
         t1.ident as t9ident,
         t1.name as t1name,
-        t2.name as t2name
-        -- t3.name as t3name -- this is where performance degrades
-        -- t4.name as t4name,
-        -- t5.name as t5name,
-        -- t6.name as t6name
-        -- t7.name as t7name,
-        -- t8.name as t8name,
-        -- t9.name as t9name
+        t2.name as t2name,
+        t3.name as t3name, -- this is where performance degrades
+        t4.name as t4name,
+        t5.name as t5name,
+        t6.name as t6name,
+        t7.name as t7name,
+        t8.name as t8name,
+        t9.name as t9name
     from dbo.test_table t1 
     cross apply dbo.test_table t2 
     cross apply dbo.test_table t3 
-    -- cross apply dbo.test_table t4 
-    -- cross apply dbo.test_table t5
-    -- cross apply dbo.test_table t6 
-    -- cross apply dbo.test_table t7 
-    -- cross apply dbo.test_table t8 
-    -- cross apply dbo.test_table t9 -- add more cross apply operators to expand 
-    -- cross apply dbo.test_table t10
+    cross apply dbo.test_table t4 
+    cross apply dbo.test_table t5
+    cross apply dbo.test_table t6 
+    cross apply dbo.test_table t7 
+    cross apply dbo.test_table t8 
+    cross apply dbo.test_table t9 -- add more cross apply operators to expand 
+    cross apply dbo.test_table t10
     where t1.ident > t2.ident
-        -- and t2.ident > t3.ident 
-        -- and t3.ident > t4.ident
-        -- and t4.ident > t5.ident 
-        -- and t5.ident > t6.ident 
-        -- and t6.ident > t7.ident
-        -- and t7.ident > t8.ident 
-        -- and t8.ident > t9.ident
-        -- and t9.ident > t10.ident
+        and t2.ident > t3.ident 
+        and t3.ident > t4.ident
+        and t4.ident > t5.ident 
+        and t5.ident > t6.ident 
+        and t6.ident > t7.ident
+        and t7.ident > t8.ident 
+        and t8.ident > t9.ident
+        and t9.ident > t10.ident
 ),
 
 b as (
